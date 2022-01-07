@@ -1,0 +1,10 @@
+.wrapper{
+    grid-area: c;
+    border: black solid 1px;
+}
+.item{
+    color: blueviolet;
+}
+.content{
+    margin-left: 20px;
+}
