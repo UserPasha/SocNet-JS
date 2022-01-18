@@ -3,7 +3,7 @@ function Header() {
     return (
         <header className={c.header}>
             <img
-                src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-business-logo-design-png-image_915991.jpg"
+                src="https://yt3.ggpht.com/ytc/AKedOLS1AZhEVoT69mDznUiqA5tTkS4D47iqYSE7eYpNCg=s800-c-k-c0x00ffffff-no-rj"
                 alt="logo"/>
         </header>
     )

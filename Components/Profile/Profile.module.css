@@ -1,10 +1,9 @@
-.wrapper{
-    grid-area: c;
-    border: black solid 1px;
+.contentWrapper {
+    color: white;
+    background-color: rgb(48, 48, 48);
 }
-.item{
-    color: blueviolet;
-}
-.content{
+
+.content {
     margin-left: 20px;
+
 }

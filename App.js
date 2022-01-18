@@ -19,16 +19,16 @@ function App() {
             <div className={"app-wrapper-content"}>
                 <Routes>
                     <Route path="/messages" element={<Dialogs/>}/>
-                    <Route path="/profile"  element={<Profile/>}/>
-                    <Route path="/music"  element={<Music/>}/>
-                    <Route path="/news"  element={<News/>}/>
-                    <Route path="/settings"  element={<Settings/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/music" element={<Music/>}/>
+                    <Route path="/news" element={<News/>}/>
+                    <Route path="/settings" element={<Settings/>}/>
 
-                    </Routes>
+                </Routes>
             </div>
         </div>
 
-);
+    );
 }
 
 export default App;

@@ -1,7 +1,14 @@
-.header{
+.header {
     grid-area: h;
     border: black solid 1px;
+    background-color: rgb(37, 173, 159);
+    position: relative;
+
 }
-.header img{
-    max-width: 60px;
+
+.header img {
+    max-width: 100px;
+    position: absolute;
+    top: 10px;
+    left: 15px;
 }

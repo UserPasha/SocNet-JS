@@ -1,11 +1,21 @@
 .nav {
     grid-area: n;
     border: black solid 1px;
+    background-color: rgb(48, 48, 48);
+
+}
+
+.nav .navItem {
+    height: 50px;
+    border: 1px white solid;
+    text-align: center;
+    background-color: rgb(34,34,34);
 }
 
 .item {
 
-    color: #799a24;
+    color: rgb(37, 173, 159);
+
     text-decoration: none;
     padding: 3px;
     font-weight: bold;
@@ -14,9 +24,10 @@
 
 
 .active {
-    color: #07101e;
+    color: white;
     margin-left: 20px;
     text-decoration: none;
     font-size: 110%;
     font-weight: bolder;
+    /*transition: margin-left 2s;*/
 }

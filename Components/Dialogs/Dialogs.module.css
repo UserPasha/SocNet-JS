@@ -1,0 +1,29 @@
+.dialogWrapper {
+    display: grid;
+    grid-template-columns:3fr 9fr;
+}
+
+.dialogWrapper .dialogs {
+    margin-left: 20px;
+}
+.dialogWrapper .dialogs .active{
+
+    font-weight: bolder;
+    color: #76cec3;
+    margin-left: 10px;
+    /*transition: margin-right 2s;*/
+}
+
+.dialogWrapper .dialogs .userDialog {
+    color: #1f1b1b;
+    font-weight: bold;
+}
+
+.dialogWrapper .messages .message {
+    margin-left: 20px;
+    font-size: 90%;
+}
+
+.dialogWrapper .messages {
+    border-left: 1px dotted darkblue;
+}

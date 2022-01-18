@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 function MyPosts() {
     return (
 
-        <div>
+        <div className={c.postWrapper}>
             Posts
             <div>
                 New Post
