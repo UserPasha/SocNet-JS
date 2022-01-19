@@ -1,3 +1,6 @@
 .postWrapper{
-    background-color: rgb(34,34,34);
+    margin-left: 20px;
+}
+.posts{
+    margin-top: 10px;
 }

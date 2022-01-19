@@ -1,36 +1,35 @@
 import React from 'react';
 import c from "./Dialogs.module.css"
+import {NavLink} from "react-router-dom";
 
+const DialogItem = ( props) =>{
+let path = "/messages/"+props.id
+    return <div  className={/*c.userDialog+''+*/c.active}>
+        <NavLink to={path}>{props.name}</NavLink>
+    </div>
+}
+
+const MessageItem =(props)=>{
+
+    return  <div className={c.message}>{props.message}</div>
+
+}
 function Dialogs(props) {
     return (
         <div className={c.dialogWrapper}>
             <div className={c.dialogs}>
-                <div  className={/*c.userDialog+''+*/c.active}>
-                    Pasha
-                </div>
-                <div className={c.userDialog}>
-                    Sasha
-                </div>
-                <div className={c.userDialog}>
-                    Masha
-                </div>
-                <div className={c.userDialog}>
-                    Svetlana
-                </div>
-                <div className={c.userDialog}>
-                    Dasha
-                </div>
+                <DialogItem name="Pasha" id="1"/>
+                <DialogItem name="Sasha" id="2"/>
+                <DialogItem name="Masha" id="3"/>
+                <DialogItem name="Svetlana" id="4"/>
+                <DialogItem name="Dasha" id="5"/>
+
             </div>
             <div className={c.messages}>
-                <div className={c.message}>
-                    Hi!
-                </div>
-                <div className={c.message}>
-                    yo!
-                </div>
-                <div className={c.message}>
-                    Man!
-                </div>
+                <MessageItem message="Hi!"/>
+                <MessageItem message="Man!"/>
+                <MessageItem message="Yo!"/>
+
             </div>
         </div>
     );

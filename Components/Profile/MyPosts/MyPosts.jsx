@@ -10,6 +10,12 @@ function MyPosts() {
                 New Post
             </div>
             <div>
+                <textarea></textarea>
+            </div>
+            <div>
+                <button>ADD</button>
+            </div>
+            <div className={c.posts}>
                 <Post title="yo!" likes="20 likes"/>
                 <Post title="hey!" likes="15 likes"/>
             </div>

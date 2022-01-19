@@ -1,6 +1,7 @@
 .header {
     grid-area: h;
     border: black solid 1px;
+    border-radius: 5px;
     background-color: rgb(37, 173, 159);
     position: relative;
 
