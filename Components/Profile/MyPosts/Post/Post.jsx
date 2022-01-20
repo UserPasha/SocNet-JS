@@ -5,14 +5,14 @@ function Post(props) {
         <div className={c.postWrapper}>
             <div className={c.item}>
                 <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
+                    src={props.img}
                     alt="avatar"/>
-                {props.title}
-                <div>
-                <span>
-                {props.likes}
-                 </span>
-                </div>
+
+                    <span>{props.title}</span>
+                    <div>
+                        <span>{props.likes}</span>
+                    </div>
+
             </div>
         </div>
     )

@@ -11,5 +11,7 @@
     height: 50px;
     border-radius: 80px;
 }
-
+.item span{
+   margin-left: 20px;
+}
 
