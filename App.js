@@ -9,7 +9,7 @@ import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 
 
-function App() {
+function App(props) {
 
     return (
 
@@ -18,8 +18,8 @@ function App() {
             <Navbar/>
             <div className={"app-wrapper-content"}>
                 <Routes>
-                    <Route path="/messages" element={<Dialogs/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/messages" element={<Dialogs name={props.name} id={props.id} message={props.message}/>}/>
+                    <Route path="/profile" element={<Profile title={props.title} likes={props.likes} img={props.img}/>}/>
                     <Route path="/music" element={<Music/>}/>
                     <Route path="/news" element={<News/>}/>
                     <Route path="/settings" element={<Settings/>}/>
