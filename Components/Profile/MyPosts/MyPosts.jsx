@@ -10,6 +10,7 @@ import Post from "./Post/Post";
 /*let postElement = postData.map(el =>  <Post title={el.title} likes={el.likes} img={el.img}/>)*/
 
 function MyPosts(props) {
+    let postElement = props.posts.map(el =>  <Post key={el.id} title={el.title} likes={el.likes} img={el.img}/>)
     return (
 
         <div className={c.postWrapper}>
@@ -25,10 +26,7 @@ function MyPosts(props) {
             </div>
             <div className={c.posts}>
                 Posts
-                <Post title={props.title} likes={props.likes} img={props.img}/>
-                {/*{postElement}*/}
-                {/*<Post title={postData[0].title} likes={postData[0].likes} img={postData[0].img}/>
-                <Post title={postData[1].title} likes={postData[1].likes} img={postData[1].img}/>*/}
+                {postElement}
 
             </div>
         </div>
