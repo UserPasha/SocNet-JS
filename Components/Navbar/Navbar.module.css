@@ -2,16 +2,21 @@
     grid-area: n;
     border: black solid 1px;
     background-color: rgb(48, 48, 48);
- border-radius: 5px;
+    border-radius: 5px;
 }
 
 .nav .navItem {
+    width: 260px;
     height: 50px;
     border: 1px white solid;
     border-radius: 5px;
     text-align: center;
-    background-color: rgb(34,34,34);
-    }
+    background-color: rgb(34, 34, 34);
+}
+
+.nav .navItem.big {
+    height: 150px;
+}
 
 .item {
 
@@ -31,4 +36,23 @@
     font-size: 110%;
     font-weight: bolder;
     /*transition: margin-left 2s;*/
+}
+
+.friends {
+    display: flex;
+    margin: 20px 10px;
+}
+
+.friendsItem {
+    width: 50px;
+    height: 80px;
+    color: white;
+    margin-left: 25px;
+}
+
+.friendsItem img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    border: 1px solid rgb(37, 173, 159);
 }
