@@ -1,16 +1,18 @@
+import React from 'react';
 import c from "./MyPosts.module.css"
 import Post from "./Post/Post";
+//import {addPost} from "../../../Redux/state";
 
 
-// const postData = [
-//     {id: 1, title: "yo!", likes: "20 likes", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"},
-//     {id: 1, title: "hey!", likes: "30 likes", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqUhrgutc0KGdPsVqtYabKuqq0m4NDoutU-g&usqp=CAU"}
-//
-// ]
-/*let postElement = postData.map(el =>  <Post title={el.title} likes={el.likes} img={el.img}/>)*/
 
 function MyPosts(props) {
-    let postElement = props.posts.map(el =>  <Post key={el.id} title={el.title} likes={el.likes} img={el.img}/>)
+    let postElement = props.posts.map(el => <Post key={el.id} title={el.title} likes={el.likes} img={el.img}/>)
+    let newPostElement = React.createRef()
+    let addNewPost = () => {
+        let text = newPostElement.current.value
+        props.addPost(text)
+        newPostElement.current.value = ""
+    }
     return (
 
         <div className={c.postWrapper}>
@@ -19,10 +21,10 @@ function MyPosts(props) {
                 New Post
             </div>
             <div>
-                <textarea> </textarea>
+                <textarea ref={newPostElement}> </textarea>
             </div>
             <div>
-                <button>ADD</button>
+                <button onClick={addNewPost}>ADD</button>
             </div>
             <div className={c.posts}>
                 Posts

@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../render";
+
 let stateR = {
     profilePage:
         {postData:
@@ -23,6 +25,17 @@ let stateR = {
        ]
    },
     sidebarPage:{}
+}
+
+export let addPost = (postMessage) =>{
+let newPost = {
+    id: 5,
+    title: postMessage,
+    likes: "0 likes",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
+}
+    stateR.profilePage.postData.push(newPost)
+    rerenderEntireTree(stateR)
 }
 
 export default stateR;
