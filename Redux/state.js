@@ -1,7 +1,11 @@
-const ADD_MESSAGE = "ADD-MESSAGE"
+import {ProfileReducer} from "./profile-reducer";
+import {DialogsReducer} from "./dialogs-reducer";
+import {SidebarReducer} from "./sidebar-reducer";
+
+/*const ADD_MESSAGE = "ADD-MESSAGE"
 const ADD_POST = "ADD-POST"
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT"
-const UPDATE_MESSAGE_TEXT = "UPDATE-MESSAGE-TEXT"
+const UPDATE_MESSAGE_TEXT = "UPDATE-MESSAGE-TEXT"*/
 
 let store = {
     _state: {
@@ -71,40 +75,20 @@ let store = {
     getState(){
         return this._state
     },
-   /* addMessage() {
-        let newMessage =  {
-            message: this._state.dialogsPage.newMessageText,
-            id: "8"
-        }
-        this._state.dialogsPage.messagesData.push(newMessage)
-        this._state.dialogsPage.newMessageText = ""
-        this._rerenderEntireTree(this._state)
-    },
-    addPost () {
-        let newPost = {
-            id: 5,
-            title: this._state.profilePage.newPostText,
-            likes: "0 likes",
-            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
-        }
-        this._state.profilePage.postData.push(newPost)
-        this._state.profilePage.newPostText = ""
-        this._rerenderEntireTree(this._state)
-    },
-    updatePostText (newText){
-        this._state.profilePage.newPostText = newText
-        this._rerenderEntireTree(this._state)
-    },
-    updateMessageText (newText) {
-        this._state.dialogsPage.newMessageText = newText
-        this._rerenderEntireTree(this._state)
-    },*/
+
     subscribe (observer){
         this._rerenderEntireTree = observer
     },
 
     dispatch(action){
-        if(action.type === ADD_MESSAGE){
+
+        this._state.profilePage = ProfileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebarPage = SidebarReducer(this._state.sidebarPage, action)
+
+        this._rerenderEntireTree(this._state)
+
+      /*  if(action.type === ADD_MESSAGE){
             let newMessage =  {
                 message: this._state.dialogsPage.newMessageText,
                 id: "8"
@@ -129,31 +113,11 @@ let store = {
             this._state.dialogsPage.newMessageText = action.newText
             this._rerenderEntireTree(this._state)
         }
-
+*/
     }
 }
 
-export const addPostActionCreator = () =>{
-    return{
-        type: "ADD-POST"
-    }
-}
-export const updatePostTextActionCreator=(text)=>{
-    return {
-        type: "UPDATE-POST-TEXT",
-        newText: text
-    }
-}
-export const addNewMessageActionCreator = () => {
-    return{
-        type: "ADD-MESSAGE"
-    }
-}
-export const updateMessageTextActionCreator = (text) =>{
-    return{
-        type: "UPDATE-MESSAGE-TEXT",
-        newText: text
-    }
-}
+
+
 export default store;
 window.store = store
