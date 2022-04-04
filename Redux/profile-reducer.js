@@ -1,7 +1,26 @@
 const ADD_POST = "ADD-POST"
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT"
 
-export const ProfileReducer= (state, action) => {
+let initialState =  {
+        postData:
+            [
+                {
+                    id: 1,
+                    title: "yo!",
+                    likes: "20 likes",
+                    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
+                },
+                {
+                    id: 1,
+                    title: "hey!",
+                    likes: "30 likes",
+                    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqUhrgutc0KGdPsVqtYabKuqq0m4NDoutU-g&usqp=CAU"
+                }
+            ],
+        newPostText: "hey! Its posts area!"
+    }
+
+export const ProfileReducer= (state=initialState, action) => {
     switch (action.type){
         case ADD_POST:
             let newPost = {

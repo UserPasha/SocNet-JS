@@ -7,9 +7,7 @@ import {Routes, Route} from "react-router-dom";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
-
-
-
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
 function App(props) {
@@ -21,11 +19,10 @@ function App(props) {
             <Navbar/>
             <div className={"app-wrapper-content"}>
                 <Routes>
-                    <Route path="/messages/*" element={<Dialogs state={props.stateA.dialogsPage}
-                                                                newMessageText={props.stateA.dialogsPage.newMessageText}
-                                                                dispatch={props.dispatch}/>}/>
-                    <Route path="/profile/*" element={<Profile state={props.stateA.profilePage}
-                                                             dispatch={props.dispatch}/>}/>
+                    <Route path="/messages/*" element={<DialogsContainer/>}/>
+                    <Route path="/profile/*" element={<Profile/>}/>
+                    {/*<Route path="/messages/*" element={<DialogsContainer store={props.store}/>}/>
+                    <Route path="/profile/*" element={<Profile store={props.store}/>}/>*/}
                     <Route path="/music/*" element={<Music/>}/>
                     <Route path="/news/*" element={<News/>}/>
                     <Route path="/settings/*" element={<Settings/>}/>
