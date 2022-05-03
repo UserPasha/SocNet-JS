@@ -20,6 +20,9 @@ function Navbar() {
             <div className={c.navItem}>
                 <NavLink to="/settings" className={navData => navData.isActive ? c.active : c.item}>Settings</NavLink>
             </div>
+            <div className={c.navItem}>
+                <NavLink to="/users" className={navData => navData.isActive ? c.active : c.item}>Users</NavLink>
+            </div>
             <div className={`${c.navItem} ${c.big}`}>
                 <NavLink to="/friends" className={navData => navData.isActive ? c.active : c.item}>Friends</NavLink>
                 <div className={c.friends}>

@@ -10,7 +10,8 @@ function MyPosts(props) {
                                                   img={el.img}/>)
     let newPostElement = React.createRef()
     let addNewPost = () => {
-        props.addPost()
+        debugger;
+        props.addNewPost()
         //props.dispatch(addPostActionCreator())
     }
     let onPostChange = () => {
