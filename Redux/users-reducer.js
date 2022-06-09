@@ -1,38 +1,14 @@
-import {v1} from "uuid";
-
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
-const SET_USERS ="SET_USERS"
+const SET_USERS = "SET_USERS"
+const GET_CURRENT_PAGE = "GET_CURRENT_PAGE"
+const SET_TOTAL_USER_LIST = "SET_TOTAL_USER_LIST"
 
 let initialState = {
-    users: []
-    /*users: [
-        {
-            id: v1(),
-            photoURL: "https://image.shutterstock.com/image-vector/logistic-company-vector-logo-arrow-260nw-643639804.jpg",
-            fullName: "Grigory Lermontov",
-            followed: false,
-            status: "active",
-            location: {country: "Belarus", city: "Minsk"}
-        },
-        {
-            id: v1(),
-            photoURL: "https://image.shutterstock.com/image-vector/symbol-gas-oil-drop-made-260nw-209923879.jpg",
-            fullName: "Elena Katina",
-            followed: false,
-            status: "im learn something...",
-            location: {country: "Belarus", city: "Hrodno"}
-        },
-        {
-            id: v1(),
-            photoURL: "https://image.shutterstock.com/image-vector/logistic-company-vector-logo-arrow-260nw-643639804.jpg",
-            fullName: "Vasiliy Smolov",
-            followed: true,
-            status: "buy a car",
-            location: {country: "Belarus", city: "Minsk"}
-        },
-
-    ],*/
+    users: [],
+    pageSize: 5,
+    totalUsers: 0,
+    currentPage: 11
 
 }
 
@@ -40,13 +16,20 @@ export const UsersReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case FOLLOW:
-            return {...state, users: state.users.map(m => m.id === action.userId? {...m, followed: true} : m)}
+            return {...state, users: state.users.map(m => m.id === action.userId ? {...m, followed: true} : m)}
 
         case UNFOLLOW:
-            return {...state, users: state.users.map(m => m.id === action.userId? {...m, followed: false} : m)}
+            return {...state, users: state.users.map(m => m.id === action.userId ? {...m, followed: false} : m)}
 
         case SET_USERS:
-            return {...state, users: [...state.users, ...action.newUsers]}
+            return {...state, users: action.newUsers}
+
+        case GET_CURRENT_PAGE:
+            return {...state, currentPage: action.currentPage}
+
+        case SET_TOTAL_USER_LIST:
+            return {...state, totalUsers: action.userList}
+
         default:
             return state
 
@@ -67,5 +50,15 @@ export const unFollowAC = (userId) => {
 export const setUsersAC = (newUsers) => {
     return {
         type: "SET_USERS", newUsers
+    }
+}
+export const getCurrentPageAC = (currentPage) => {
+    return {
+        type: "GET_CURRENT_PAGE", currentPage
+    }
+}
+export const setTotalUsersListAC = (totalUserCount) => {
+    return {
+        type: "SET_TOTAL_USER_LIST", userList: totalUserCount
     }
 }
