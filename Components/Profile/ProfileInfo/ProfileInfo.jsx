@@ -1,7 +1,12 @@
 import React from 'react';
 import c from "./ProfileInfo.module.css";
+import Preloader from "../../../common/Components/Preloader";
 
 function ProfileInfo(props) {
+    console.log(props)
+    if(!props.profile){
+        return<Preloader/>
+    }
     return (
         <div className={c.profileInfoWrapper}>
             <img
@@ -9,6 +14,7 @@ function ProfileInfo(props) {
                 alt="background-cover"/>
             <div className={c.content}>
                 <div>
+                    <img src={props.profile.photos.large} alt={"User Avatar"}/>
                     Avatar+description
                 </div>
             </div>

@@ -2,6 +2,7 @@ import {v1} from "uuid";
 
 const ADD_POST = "ADD-POST"
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT"
+const SET_USER_PROFILE = "SET_USER_PROFILE"
 
 let initialState = {
     postData:
@@ -19,7 +20,8 @@ let initialState = {
                 img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqUhrgutc0KGdPsVqtYabKuqq0m4NDoutU-g&usqp=CAU"
             }
         ],
-    newPostText: "hey! Its posts area!"
+    newPostText: "hey! Its posts area!",
+    profile: null
 }
 
 export const ProfileReducer = (state = initialState, action) => {
@@ -45,24 +47,16 @@ export const ProfileReducer = (state = initialState, action) => {
                 newPostText: action.newText
             }
 
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                profile: action.profile
+            }
+
         default:
             return state
     }
 
-    /*  if(action.type === ADD_POST){
-         let newPost = {
-             id: 5,
-             title: state.newPostText,
-             likes: "0 likes",
-             img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
-         }
-         state.postData.push(newPost)
-          state.newPostText = ""
-      }else if(action.type === UPDATE_POST_TEXT){
-          state.newPostText = action.newText
-     }
-
-     return state*/
 }
 
 export const addPostActionCreator = () => {
@@ -74,5 +68,11 @@ export const updatePostTextActionCreator = (text) => {
     return {
         type: "UPDATE-POST-TEXT",
         newText: text
+    }
+}
+export const setUserProfile = (profile) => {
+    return {
+        type: "SET_USER_PROFILE",
+        profile
     }
 }

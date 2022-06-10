@@ -1,26 +1,35 @@
 import React from 'react';
 import c from "./Users.module.css"
-import axios from "axios";
-import userPhoto from "../../common/images/User.png"
+import userPhoto from "../../common/images/User.png";
+import {NavLink} from "react-router-dom";
 
-const Users = (props) => {
-    const getUsers = () => {
-        if (props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                props.setUsers(response.data.items)
-            })
-        }
+
+const UsersPresentation = (props) => {
+    let pagesOfgUsers = Math.ceil(props.totalUsers / props.pageSize)
+    let pages = []
+    for (let i = 1; i <= pagesOfgUsers; i++) {
+        pages.push(i)
     }
-
     return (
+        <div>
+            <div className={c.wrapper}>
+                <div className={c.pagesCount}>
+                    {pages.map(p => <span key={p}
+                                          className={props.currentPage === p && c.selected}
+                                          onClick={(e) => {
+                                              props.onPageHandler(p)
+                                          }}
+                    >{p}</span>)}
 
-        <div className={c.wrapper}>
-            <button onClick={getUsers}>Get Users</button>
-            {
-                props.users.map(m => <div key={m.id}>
+                </div>
+
+                {
+                  props.users.map(m => <div key={m.id}>
                     <span>
                         <div>
+                            <NavLink to={'/profile/'+m.id}>
                             <img src={m.photos.small !== null ? m.photos.small : userPhoto}/>
+                                </NavLink>
                         </div>
                         <div>
                             {m.followed
@@ -30,7 +39,7 @@ const Users = (props) => {
                                 <button onClick={() => props.follow(m.id)}>Unfollow</button>}
                         </div>
                     </span>
-                    <span>
+                        <span>
                         <span>
                             <div>{m.name}</div>
                             <div>{m.status}</div>
@@ -44,10 +53,11 @@ const Users = (props) => {
                             </div>
                         </span>
                     </span>
-                </div>)
-            }
+                    </div>)
+                }
+            </div>
         </div>
     );
 };
 
-export default Users;
+export default UsersPresentation;
