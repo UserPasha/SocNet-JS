@@ -4,14 +4,18 @@ const SET_USERS = "SET_USERS"
 const GET_CURRENT_PAGE = "GET_CURRENT_PAGE"
 const SET_TOTAL_USER_LIST = "SET_TOTAL_USER_LIST"
 const IS_LOADING = "IS_LOADING"
+const REQUEST_TO_FOLLOW = "REQUEST_TO_FOLLOW"
+
 
 let initialState = {
     users: [],
     pageSize: 15,
     totalUsers: 0,
     currentPage: 1,
-    isLoading: false
+    isLoading: false,
+    requestToFollowIdArray: [],
 
+    followingInProgress: []
 }
 
 export const UsersReducer = (state = initialState, action) => {
@@ -32,8 +36,15 @@ export const UsersReducer = (state = initialState, action) => {
         case SET_TOTAL_USER_LIST:
             return {...state, totalUsers: action.userList}
 
-       case IS_LOADING:
+        case IS_LOADING:
             return {...state, isLoading: action.isLoadingBoolean}
+
+        case REQUEST_TO_FOLLOW:
+            return {
+                ...state, requestToFollowIdArray: action.isLoadingBoolean ?
+                    [...state.requestToFollowIdArray, action.id]
+                    : state.requestToFollowIdArray.filter(f => f !== action.id)
+            }
 
         default:
             return state
@@ -72,3 +83,9 @@ export const togglePreloader = (isLoadingBoolean) => {
         type: "IS_LOADING", isLoadingBoolean
     }
 }
+export const followRequester = (isLoadingBoolean, id) => {
+    return {
+        type: "REQUEST_TO_FOLLOW", isLoadingBoolean, id
+    }
+}
+

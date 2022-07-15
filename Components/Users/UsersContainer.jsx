@@ -1,31 +1,35 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    follow, setCurrentPage, setTotalUsers, setUsers, togglePreloader, unfollow
+    follow, followRequester, setCurrentPage, setTotalUsers, setUsers, togglePreloader, unfollow
 
 } from "../../Redux/users-reducer";
 import axios from "axios";
 import UsersPresentation from "./UsersPresentation";
 import Preloader from "../../common/Components/Preloader";
+import {usersAPI} from "../../API/api";
 
-export class UsersClass extends React.Component {
+
+export class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.togglePreloader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        usersAPI.getListOfUsers(this.props.currentPage, this.props.pageSize).then(data => {
             this.props.togglePreloader(false)
-            this.props.setUsers(response.data.items);
-            this.props.setTotalUsers(response.data.totalCount)
+            this.props.setUsers(data.items);
+            this.props.setTotalUsers(data.totalCount)
+
         })
 
     }
 
     onPageHandler = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
+
         this.props.togglePreloader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+        usersAPI.getCurrentPage(pageNumber, this.props.pageSize).then(data => {
             this.props.togglePreloader(false)
-            this.props.setUsers(response.data.items)
+            this.props.setUsers(data.items)
         })
 
     }
@@ -43,6 +47,8 @@ export class UsersClass extends React.Component {
                                    follow={this.props.follow}
                                    unfollow={this.props.unfollow}
                                    users={this.props.users}
+                                   requestToFollowIdArray={this.props.requestToFollowIdArray}
+                                   followRequester={this.props.followRequester}
                 />
             </>
 
@@ -57,32 +63,12 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsers: state.usersPage.totalUsers,
         currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading
+        isLoading: state.usersPage.isLoading,
+        requestToFollowIdArray: state.usersPage.requestToFollowIdArray,
     }
 }
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         follow: (userId) => {
-//             dispatch(follow(userId))
-//         },
-//         unfollow: (userId) => {
-//             dispatch(unfollow(userId))
-//         },
-//         setUsers: (newUsers) => {
-//             dispatch(setUsers(newUsers))
-//         },
-//         setCurrentPage: (pageNumber) => {
-//             dispatch(setCurrentPage(pageNumber))
-//         },
-//         setTotalUsers: (totalCount) => {
-//             dispatch(setTotalUsers(totalCount))
-//         },
-//         togglePreloader: (isLoadingBoolean) => {
-//             dispatch(togglePreloader(isLoadingBoolean))
-//         }
-//
-//
-//     }
-// }
 
-export default connect(mapStateToProps, {follow, unfollow, setCurrentPage, setTotalUsers, setUsers, togglePreloader})(UsersClass);
+
+export default connect(mapStateToProps,
+    {follow, unfollow, setCurrentPage,
+        setTotalUsers, setUsers, togglePreloader, followRequester})(UsersContainer);

@@ -15,7 +15,12 @@ function ProfileInfo(props) {
             <div className={c.content}>
                 <div>
                     <img src={props.profile.photos.large} alt={"User Avatar"}/>
-                    description
+                    <div>
+                        <span className={c.name}>{props.profile.fullName}</span>
+                    </div>
+                    <div>
+                        <span>{props.profile.aboutMe}</span>
+                    </div>
                 </div>
             </div>
         </div>
