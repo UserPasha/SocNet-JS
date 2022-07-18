@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {usersAPI} from "../API/api";
 
 const ADD_POST = "ADD-POST"
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT"
@@ -74,5 +75,13 @@ export const setUserProfile = (profile) => {
     return {
         type: "SET_USER_PROFILE",
         profile
+    }
+}
+export const userProfileThunkCreator = (userId)=>{
+    return (dispatch)=>{
+        usersAPI.userProfile(userId)
+            .then(data=>{
+                dispatch(setUserProfile(data))
+            })
     }
 }

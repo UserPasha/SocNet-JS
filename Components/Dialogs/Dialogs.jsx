@@ -2,6 +2,7 @@ import React from 'react';
 import c from "./Dialogs.module.css"
 import DialogsItems from "./DialogItems/DialogItems";
 import MessageItems from "./MessageItems/MessageItems";
+import {Redirect} from "react-router-dom";
 
 
 
@@ -22,6 +23,9 @@ function Dialogs(props) {
         // let actionKeys = {type: "UPDATE-MESSAGE-TEXT", newText: text};
         // props.dispatch(updateMessageTextActionCreator(text))
     }
+    if(!props.isAuth) return <Redirect to={"/login"}/>
+
+
     return (
         <div className={c.dialogWrapper}>
             <div className={c.dialogs}>

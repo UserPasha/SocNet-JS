@@ -1,3 +1,5 @@
+import {usersAPI} from "../API/api";
+
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET_USERS"
@@ -13,9 +15,7 @@ let initialState = {
     totalUsers: 0,
     currentPage: 1,
     isLoading: false,
-    requestToFollowIdArray: [],
-
-    followingInProgress: []
+    requestToFollowIdArray: []
 }
 
 export const UsersReducer = (state = initialState, action) => {
@@ -86,6 +86,52 @@ export const togglePreloader = (isLoadingBoolean) => {
 export const followRequester = (isLoadingBoolean, id) => {
     return {
         type: "REQUEST_TO_FOLLOW", isLoadingBoolean, id
+    }
+}
+
+export const getUsersThunkCreator = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(togglePreloader(true))
+        usersAPI.getListOfUsers(currentPage, pageSize).then(data => {
+            dispatch(togglePreloader(false))
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUsers(data.totalCount))
+        })
+    }
+}
+
+export const onPageHandlerThunkCreator = (pageNumber, pageSize)=> {
+    return (dispatch) => {
+        dispatch(setCurrentPage(pageNumber));
+        dispatch(togglePreloader(true))
+        usersAPI.getCurrentPage(pageNumber, pageSize).then(data => {
+            dispatch(togglePreloader(false))
+            dispatch(setUsers(data.items))
+        })
+    }
+}
+
+export const unFollowUserThunkCreator = (id)=> {
+    return (dispatch) => {
+        dispatch(followRequester(true, id))
+        usersAPI.unfollowUser(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unfollow(id))
+            }
+            dispatch(followRequester(false, id))
+        })
+    }
+}
+
+export const followUserThunkCreator = (id)=> {
+    return (dispatch) => {
+        dispatch(followRequester(true, id))
+        usersAPI.followUser(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(follow(id))
+            }
+            dispatch(followRequester(false, id))
+        })
     }
 }
 

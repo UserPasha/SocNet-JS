@@ -5,3 +5,10 @@
     font-size: 30px;
     font-weight: bolder;
 }
+.content{
+    padding: 20px;
+    background: rgb(21, 103, 94);
+}
+.content img{
+    max-width: 300px;
+}
