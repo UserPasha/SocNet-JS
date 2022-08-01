@@ -9,6 +9,8 @@ import {
 } from "../../Redux/users-reducer";
 import UsersPresentation from "./UsersPresentation";
 import Preloader from "../../common/Components/Preloader";
+import WithAuthRedirect from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 
@@ -16,27 +18,10 @@ export class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
-
-        // this.props.togglePreloader(true)
-        // usersAPI.getListOfUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //     this.props.togglePreloader(false)
-        //     this.props.setUsers(data.items);
-        //     this.props.setTotalUsers(data.totalCount)
-        //
-        // })
-
     }
 
     onPageHandler = (pageNumber) => {
         this.props.getCurrentPage(pageNumber, this.props.pageSize)
-
-        // this.props.setCurrentPage(pageNumber);
-        //
-        // this.props.togglePreloader(true)
-        // usersAPI.getCurrentPage(pageNumber, this.props.pageSize).then(data => {
-        //     this.props.togglePreloader(false)
-        //     this.props.setUsers(data.items)
-        // })
 
     }
 
@@ -73,10 +58,11 @@ let mapStateToProps = (state) => {
     }
 }
 
-
-export default connect(mapStateToProps,
-    { setCurrentPage,
-         getUsers: getUsersThunkCreator,
-       getCurrentPage: onPageHandlerThunkCreator,
-        unfollowUser: unFollowUserThunkCreator,
-    followUser: followUserThunkCreator})(UsersContainer);
+export default  compose( connect(mapStateToProps,
+        { setCurrentPage,
+            getUsers: getUsersThunkCreator,
+            getCurrentPage: onPageHandlerThunkCreator,
+            unfollowUser: unFollowUserThunkCreator,
+            followUser: followUserThunkCreator}),
+    WithAuthRedirect
+)(UsersContainer)
