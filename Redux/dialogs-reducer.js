@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 
 const ADD_MESSAGE = "ADD-MESSAGE"
-const UPDATE_MESSAGE_TEXT = "UPDATE-MESSAGE-TEXT"
+
 
 let initialState = {
     dialogs: [
@@ -39,8 +39,7 @@ let initialState = {
         {message: "it-kamasutra and it-incubator", id: v1()},
         {message: "Yo!", id: v1()},
         {message: "YoYoYo!", id: v1()},
-    ],
-    newMessageText: "hey! Its dialogs area!"
+    ]
 }
 
 export const DialogsReducer = (state = initialState, action) => {
@@ -48,7 +47,7 @@ export const DialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE :
             let newMessage = {
-                message: state.newMessageText,
+                message: action.newFormMessage,
                 id: v1()
             }
             return {
@@ -57,11 +56,6 @@ export const DialogsReducer = (state = initialState, action) => {
                 messagesData: [...state.messagesData, newMessage]
             }
 
-        case UPDATE_MESSAGE_TEXT :
-            return {
-                ...state,
-                newMessageText: action.newText
-            }
 
         default:
             return state
@@ -82,14 +76,8 @@ export const DialogsReducer = (state = initialState, action) => {
 
 
 }
-export const addNewMessageActionCreator = () => {
+export const addNewMessageActionCreator = (newFormMessage) => {
     return {
-        type: "ADD-MESSAGE"
-    }
-}
-export const updateMessageTextActionCreator = (text) => {
-    return {
-        type: "UPDATE-MESSAGE-TEXT",
-        newText: text
+        type: "ADD-MESSAGE", newFormMessage
     }
 }

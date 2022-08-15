@@ -1,40 +1,28 @@
 import React from 'react';
 import c from "./MyPosts.module.css"
 import Post from "./Post/Post";
+import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, MaxLengthIs10, requiredField} from "../../../utils/validation/validator";
+import {TextArea} from "../../../common/Components/FormControls";
 
 
 function MyPosts(props) {
+
+    const addPostFormMessage = (data) => {
+        props.addNewPost(data.postText)
+    }
     let postElement = props.posts.map(el => <Post key={el.id}
                                                   title={el.title}
                                                   likes={el.likes}
                                                   img={el.img}/>)
-    let newPostElement = React.createRef()
-    let addNewPost = () => {
-        debugger;
-        props.addNewPost()
-        //props.dispatch(addPostActionCreator())
-    }
-    let onPostChange = () => {
-        let text = newPostElement.current.value
-        props.updatePostText(text)
-        //let action = {type: "UPDATE-POST-TEXT", newText: text};
-        //props.dispatch(updatePostTextActionCreator(text))
-    }
-    return (
 
+    return (
         <div className={c.postWrapper}>
 
             <div>
                 New Post
             </div>
-            <div>
-                <textarea ref={newPostElement}
-                          onChange={onPostChange}
-                          value={props.newPostText}/>
-            </div>
-            <div>
-                <button onClick={addNewPost}>ADD</button>
-            </div>
+            <PostReduxForm onSubmit={addPostFormMessage}/>
             <div className={c.posts}>
                 Posts
                 {postElement}
@@ -44,5 +32,22 @@ function MyPosts(props) {
 
     )
 }
+
+const PodstForm = (props) => {
+
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field name={"postText"} component={TextArea} placeholder={"Enter your message"}
+                validate={[requiredField, MaxLengthIs10]}/>
+            </div>
+            <div>
+                <button>Post</button>
+            </div>
+        </form>
+    )
+}
+
+const PostReduxForm = reduxForm({form: "Post"})(PodstForm)
 
 export default MyPosts;

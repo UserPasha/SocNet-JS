@@ -3,28 +3,24 @@ import c from "./Dialogs.module.css"
 import DialogsItems from "./DialogItems/DialogItems";
 import MessageItems from "./MessageItems/MessageItems";
 import {Redirect} from "react-router-dom";
-
+import {Field, reduxForm} from "redux-form";
+import {TextArea} from "../../common/Components/FormControls";
+import {MaxLengthIs100, requiredField} from "../../utils/validation/validator";
 
 
 function Dialogs(props) {
+    const addNewFormMessage = (data) => {
+        console.log(data.dialogText)
+        props.addMessage(data.dialogText)
 
+    }
     let dialogsData = props.dialogs.map(d => <DialogsItems key={d.id}
                                                            {...d}
     />)
     let messagesData = props.messagesData.map(m => <MessageItems key={m.id} {...m}/>)
-    let newMessageElement = React.createRef()
-    let addNewMessage = () => {
-        props.addMessage()
-        //props.dispatch(addNewMessageActionCreator())
-    }
-    let onMessageChange = () => {
-        let text = newMessageElement.current.value
-        props.updateMessageText(text)
-        // let actionKeys = {type: "UPDATE-MESSAGE-TEXT", newText: text};
-        // props.dispatch(updateMessageTextActionCreator(text))
-    }
-    if(!props.isAuth) return <Redirect to={"/login"}/>
 
+
+    if (!props.isAuth) return <Redirect to={"/login"}/>
 
     return (
         <div className={c.dialogWrapper}>
@@ -37,17 +33,29 @@ function Dialogs(props) {
 
                 {messagesData}
                 <div>
-                    <textarea ref={newMessageElement}
-                              onChange={onMessageChange}
-                              value={props.newMessageText}
-                    />
+
+                    <DialogsReduxForm onSubmit={addNewFormMessage}/>
                 </div>
-                <div>
-                    <button onClick={addNewMessage}>ADD</button>
-                </div>
+
             </div>
         </div>
     );
 }
+
+const DialogsForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field name={"dialogText"} component={TextArea} placeholder={"Enter your message"}
+                validate={[requiredField, MaxLengthIs100]}/>
+            </div>
+            <div>
+                <button>Send</button>
+            </div>
+        </form>
+    )
+}
+
+const DialogsReduxForm = reduxForm({form: "Dialogs"})(DialogsForm)
 
 export default Dialogs;

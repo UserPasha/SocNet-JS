@@ -2,7 +2,6 @@ import {v1} from "uuid";
 import {profileAPI, usersAPI} from "../API/api";
 
 const ADD_POST = "ADD-POST"
-const UPDATE_POST_TEXT = "UPDATE-POST-TEXT"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 const SET_STATUS = "SET_STATUS"
 
@@ -23,7 +22,6 @@ let initialState = {
                 img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqUhrgutc0KGdPsVqtYabKuqq0m4NDoutU-g&usqp=CAU"
             }
         ],
-    newPostText: "hey! Its posts area!",
     profile: null,
     status: ""
 }
@@ -34,7 +32,7 @@ export const ProfileReducer = (state = initialState, action) => {
         case ADD_POST:
             let newPost = {
                 id: v1(),
-                title: state.newPostText,
+                title: action.newPostFormText,
                 likes: "0 likes",
                 img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
             }
@@ -42,13 +40,6 @@ export const ProfileReducer = (state = initialState, action) => {
                 ...state,
                 newPostText: "",
                 postData: [...state.postData, newPost]
-            }
-
-
-        case UPDATE_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
             }
 
         case SET_USER_PROFILE:
@@ -67,15 +58,9 @@ export const ProfileReducer = (state = initialState, action) => {
 
 }
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (newPostFormText) => {
     return {
-        type: "ADD-POST"
-    }
-}
-export const updatePostTextActionCreator = (text) => {
-    return {
-        type: "UPDATE-POST-TEXT",
-        newText: text
+        type: "ADD-POST", newPostFormText
     }
 }
 export const setUserProfile = (profile) => {
