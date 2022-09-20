@@ -6,7 +6,7 @@ import {maxLengthCreator, MaxLengthIs10, requiredField} from "../../../utils/val
 import {TextArea} from "../../../common/Components/FormControls";
 
 
-function MyPosts(props) {
+const MyPosts = React.memo((props)=> {
 
     const addPostFormMessage = (data) => {
         props.addNewPost(data.postText)
@@ -31,7 +31,7 @@ function MyPosts(props) {
         </div>
 
     )
-}
+})
 
 const PodstForm = (props) => {
 

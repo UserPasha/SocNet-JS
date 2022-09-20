@@ -3,6 +3,7 @@ import c from "./ProfileInfo.module.css";
 import Preloader from "../../../common/Components/Preloader";
 import userPhoto from "../../../common/images/User.png";
 import ProfileStatus from "./ProfileStatus";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 function ProfileInfo(props) {
     if(!props.profile){
@@ -22,7 +23,7 @@ function ProfileInfo(props) {
                     <div>
                         <span>{props.profile.aboutMe}</span>
                     </div>
-                    <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
                 </div>
             </div>
         </div>

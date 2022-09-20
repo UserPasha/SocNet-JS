@@ -11,6 +11,14 @@ import UsersPresentation from "./UsersPresentation";
 import Preloader from "../../common/Components/Preloader";
 import WithAuthRedirect from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getIsLoading,
+    getPageSize,
+    getRequestToFollowIdArray,
+    getTotalUsers,
+    getUsers
+} from "../../Redux/users-selectors";
 
 
 
@@ -49,12 +57,12 @@ export class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsers: state.usersPage.totalUsers,
-        currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading,
-        requestToFollowIdArray: state.usersPage.requestToFollowIdArray,
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsers: getTotalUsers(state),
+        currentPage: getCurrentPage(state),
+        isLoading: getIsLoading(state),
+        requestToFollowIdArray: getRequestToFollowIdArray(state),
     }
 }
 
