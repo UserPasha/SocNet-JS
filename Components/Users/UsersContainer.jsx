@@ -21,7 +21,6 @@ import {
 } from "../../Redux/users-selectors";
 
 
-
 export class UsersContainer extends React.Component {
 
     componentDidMount() {
@@ -30,9 +29,7 @@ export class UsersContainer extends React.Component {
 
     onPageHandler = (pageNumber) => {
         this.props.getCurrentPage(pageNumber, this.props.pageSize)
-
     }
-
 
     render() {
 

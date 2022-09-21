@@ -1,7 +1,6 @@
 import './App.css';
-import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
@@ -25,36 +24,35 @@ class App extends Component {
     }
 
     render() {
-        if (!this.props.isInitialize) {
-            return <Preloader / >
-                }
+        // if (!this.props.isInitialize) {
+        //     return <Preloader / >
+        //         }
 
-                return (
+        return (
 
-                <div className="app-wrapper">
-                    <HeaderContainer/>
-                    <Navbar/>
-                    <div className={"app-wrapper-content"}>
-                        <Route path="/messages" component={DialogsContainer}/>
-                        <Route path="/profile/:userId?" component={ProfileContainer}/>
-                        <Route path="/music" component={Music}/>
-                        <Route path="/news" component={News}/>
-                        <Route path="/settings" component={Settings}/>
-                        <Route path="/users" component={UsersContainer}/>
-                        <Route path="/login" component={Login}/>
-
-                    </div>
+            <div className="app-wrapper">
+                <HeaderContainer/>
+                <Navbar/>
+                <div className={"app-wrapper-content"}>
+                    <Route path="/messages" component={DialogsContainer}/>
+                    <Route path="/profile/:userId?" component={ProfileContainer}/>
+                    <Route path="/music" component={Music}/>
+                    <Route path="/news" component={News}/>
+                    <Route path="/settings" component={Settings}/>
+                    <Route path="/users" component={UsersContainer}/>
+                    <Route path="/login" component={Login}/>
                 </div>
-                );
-                }
-                }
+            </div>
+        );
+    }
+}
 
-                const mapStateToProps = (state) => ({
-                isInitialize: state.app.isInitialize
-            })
+const mapStateToProps = (state) => ({
+    isInitialize: state.app.isInitialize
+})
 
-                export default compose(
-                connect(mapStateToProps, {initialize: initializeApp}),
-                withRouter
-                )
-                (App);
+export default compose(
+    connect(mapStateToProps, {initialize: initializeApp}),
+    withRouter
+)
+(App);

@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 
-const ADD_MESSAGE = "ADD-MESSAGE"
+const ADD_MESSAGE = "DIALOGS/ADD-MESSAGE"
 
 
 let initialState = {
@@ -78,6 +78,6 @@ export const DialogsReducer = (state = initialState, action) => {
 }
 export const addNewMessageActionCreator = (newFormMessage) => {
     return {
-        type: "ADD-MESSAGE", newFormMessage
+        type: "DIALOGS/ADD-MESSAGE", newFormMessage
     }
 }

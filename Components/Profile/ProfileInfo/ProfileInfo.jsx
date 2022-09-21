@@ -5,8 +5,8 @@ import userPhoto from "../../../common/images/User.png";
 import ProfileStatus from "./ProfileStatus";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
-function ProfileInfo(props) {
-    if(!props.profile){
+function ProfileInfo({profile, updateStatus, status}) {
+    if(!profile){
         return<Preloader/>
     }
     return (
@@ -16,14 +16,14 @@ function ProfileInfo(props) {
                 alt="background-cover"/>
             <div className={c.content}>
                 <div>
-                    <img alt={"User Avatar"} src={props.profile.photos.large !== null ? props.profile.photos.large : userPhoto}/>
+                    <img alt={"User Avatar"} src={profile.photos.large !== null ? profile.photos.large : userPhoto}/>
                     <div>
-                        <span className={c.name}>{props.profile.fullName}</span>
+                        <span className={c.name}>{profile.fullName}</span>
                     </div>
                     <div>
-                        <span>{props.profile.aboutMe}</span>
+                        <span>{profile.aboutMe}</span>
                     </div>
-                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+                    <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </div>
             </div>
         </div>

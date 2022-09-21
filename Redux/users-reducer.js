@@ -1,12 +1,12 @@
 import {usersAPI} from "../API/api";
 
-const FOLLOW = "FOLLOW"
-const UNFOLLOW = "UNFOLLOW"
-const SET_USERS = "SET_USERS"
-const GET_CURRENT_PAGE = "GET_CURRENT_PAGE"
-const SET_TOTAL_USER_LIST = "SET_TOTAL_USER_LIST"
-const IS_LOADING = "IS_LOADING"
-const REQUEST_TO_FOLLOW = "REQUEST_TO_FOLLOW"
+const FOLLOW = "USERS/FOLLOW"
+const UNFOLLOW = "USERS/UNFOLLOW"
+const SET_USERS = "USERS/SET_USERS"
+const GET_CURRENT_PAGE = "USERS/GET_CURRENT_PAGE"
+const SET_TOTAL_USER_LIST = "USERS/SET_TOTAL_USER_LIST"
+const IS_LOADING = "USERS/IS_LOADING"
+const REQUEST_TO_FOLLOW = "USERS/REQUEST_TO_FOLLOW"
 
 
 let initialState = {
@@ -55,83 +55,83 @@ export const UsersReducer = (state = initialState, action) => {
 }
 export const follow = (userId) => {
     return {
-        type: "FOLLOW", userId
+        type: "USERS/FOLLOW", userId
     }
 }
 export const unfollow = (userId) => {
     return {
-        type: "UNFOLLOW", userId
+        type: "USERS/UNFOLLOW", userId
     }
 }
 export const setUsers = (newUsers) => {
     return {
-        type: "SET_USERS", newUsers
+        type: "USERS/SET_USERS", newUsers
     }
 }
 export const setCurrentPage = (currentPage) => {
     return {
-        type: "GET_CURRENT_PAGE", currentPage
+        type: "USERS/GET_CURRENT_PAGE", currentPage
     }
 }
 export const setTotalUsers = (totalUserCount) => {
     return {
-        type: "SET_TOTAL_USER_LIST", userList: totalUserCount
+        type: "USERS/SET_TOTAL_USER_LIST", userList: totalUserCount
     }
 }
 export const togglePreloader = (isLoadingBoolean) => {
     return {
-        type: "IS_LOADING", isLoadingBoolean
+        type: "USERS/IS_LOADING", isLoadingBoolean
     }
 }
 export const followRequester = (isLoadingBoolean, id) => {
     return {
-        type: "REQUEST_TO_FOLLOW", isLoadingBoolean, id
+        type: "USERS/REQUEST_TO_FOLLOW", isLoadingBoolean, id
     }
 }
 
-export const getUsersThunkCreator = (currentPage, pageSize) => {
-    return (dispatch) => {
-        dispatch(togglePreloader(true))
-        usersAPI.getListOfUsers(currentPage, pageSize).then(data => {
-            dispatch(togglePreloader(false))
-            dispatch(setUsers(data.items));
-            dispatch(setTotalUsers(data.totalCount))
-        })
-    }
+
+
+export const getUsersThunkCreator = (currentPage, pageSize) => async (dispatch) => {
+    dispatch(togglePreloader(true))
+
+    let response = await usersAPI.getListOfUsers(currentPage, pageSize)
+    dispatch(togglePreloader(false))
+    dispatch(setUsers(response.items));
+    dispatch(setTotalUsers(response.totalCount))
+
 }
 
-export const onPageHandlerThunkCreator = (pageNumber, pageSize)=> {
-    return (dispatch) => {
-        dispatch(setCurrentPage(pageNumber));
-        dispatch(togglePreloader(true))
-        usersAPI.getCurrentPage(pageNumber, pageSize).then(data => {
-            dispatch(togglePreloader(false))
-            dispatch(setUsers(data.items))
-        })
-    }
+export const onPageHandlerThunkCreator = (pageNumber, pageSize) => async (dispatch) => {
+    dispatch(setCurrentPage(pageNumber));
+    dispatch(togglePreloader(true))
+
+    let response = await usersAPI.getCurrentPage(pageNumber, pageSize)
+    dispatch(togglePreloader(false))
+    dispatch(setUsers(response.items))
+
 }
 
-export const unFollowUserThunkCreator = (id)=> {
-    return (dispatch) => {
-        dispatch(followRequester(true, id))
-        usersAPI.unfollowUser(id).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(unfollow(id))
-            }
-            dispatch(followRequester(false, id))
-        })
+export const unFollowUserThunkCreator = (id) => async (dispatch) => {
+    dispatch(followRequester(true, id))
+
+    let response = await usersAPI.unfollowUser(id)
+    if (response.resultCode === 0) {
+        dispatch(unfollow(id))
     }
+    dispatch(followRequester(false, id))
+
+
 }
 
-export const followUserThunkCreator = (id)=> {
-    return (dispatch) => {
-        dispatch(followRequester(true, id))
-        usersAPI.followUser(id).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(follow(id))
-            }
-            dispatch(followRequester(false, id))
-        })
+export const followUserThunkCreator = (id) => async (dispatch) => {
+    dispatch(followRequester(true, id))
+
+    let response = await usersAPI.followUser(id)
+    if (response.resultCode === 0) {
+        dispatch(follow(id))
     }
+    dispatch(followRequester(false, id))
+
+
 }
 
