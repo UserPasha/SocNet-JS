@@ -28,7 +28,7 @@ const User = ({user, requestToFollowIdArray, unfollowUser, followUser}) => {
                                 }}>follow</button>}
                       </div>
             </span>
-            <span>
+                    <span>
                         <span>
                             <div>{user.name}</div>
                             <div>{user.status}</div>

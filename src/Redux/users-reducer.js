@@ -11,7 +11,7 @@ const REQUEST_TO_FOLLOW = "USERS/REQUEST_TO_FOLLOW"
 
 let initialState = {
     users: [],
-    pageSize: 15,
+    pageSize: 10,
     totalUsers: 0,
     currentPage: 1,
     isLoading: false,

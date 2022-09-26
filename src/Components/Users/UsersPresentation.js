@@ -18,12 +18,6 @@ const UsersPresentation = (
     return (
 
         <div className={c.wrapper}>
-            <Pagination totalUsers={totalUsers}
-                        pageSize={pageSize}
-                        currentPage={currentPage}
-                        onPageHandler={onPageHandler}
-            />
-
             {
                 users.map(m => <User key={m.id}
                                      user={m}
@@ -33,6 +27,11 @@ const UsersPresentation = (
                     />
                 )
             }
+            <Pagination totalUsers={totalUsers}
+                        pageSize={pageSize}
+                        currentPage={currentPage}
+                        onPageHandler={onPageHandler}
+            />
         </div>
     );
 };
