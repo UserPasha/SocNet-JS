@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import c from './ProfileInfo.module.css'
 
 export const ProfileStatusWithHooks = (props) => {
     const [mode, setMode] = useState(false)
@@ -35,7 +36,8 @@ export const ProfileStatusWithHooks = (props) => {
                 </div>)
                 : (
                     <div>
-                        <span onDoubleClick={StatusChanger}>
+                        <span className={c.request}>Status: </span>
+                        <span className={c.response} onDoubleClick={StatusChanger}>
                             {props.status || "----"}
                         </span>
                     </div>
