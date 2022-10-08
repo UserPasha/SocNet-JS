@@ -7,9 +7,10 @@ import {loginThunkCreator} from "../../Redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import c from "./FormControls.module.css"
 
-const Login = ({isAuth, loginThunkCreator}) => {
+const Login = ({isAuth, loginThunkCreator, captcha}) => {
+    console.log("Login", captcha);
     const onSubmit = (formData) => {
-        loginThunkCreator(formData.login, formData.password, formData.rememberMe)
+        loginThunkCreator(formData.login, formData.password, formData.rememberMe, formData.captcha)
     }
     if (isAuth) {
         return <Redirect to={"/profile"}/>
@@ -18,28 +19,39 @@ const Login = ({isAuth, loginThunkCreator}) => {
             <h1>
                 LOGIN
             </h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captcha={captcha}/>
         </>
     );
 };
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captcha}) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <Field placeholder={"login"} name={"login"} component={Input}
+                <Field placeholder={"login"}
+                       name={"login"} component={Input}
                        validate={[requiredField]}/>
             </div>
             <div>
-                <Field placeholder={"password"} name={"password"} component={Input} type={"password"}
+                <Field placeholder={"password"}
+                       name={"password"} component={Input}
+                       type={"password"}
                        validate={[requiredField]}/>
             </div>
             <div>
-                <Field type={"checkbox"} name={"rememberMe"} component={"input"}/> remember me
+                <Field type={"checkbox"}
+                       name={"rememberMe"}
+                       component={"input"}/> remember me
             </div>
             {error && <div className={c.formError}>
                 {error}
             </div>}
+            {captcha && <img src={captcha} alt={'anti bot symbols'}/>}
+            {captcha && <div><Field placeholder={'symbols from image'}
+                                    name={'captcha'}
+                                    component={'input'}
+                                    validate={[requiredField]}
+            /></div>}
             <div>
                 <button>Log in</button>
             </div>
@@ -49,6 +61,7 @@ const LoginForm = ({handleSubmit, error}) => {
 const LoginReduxForm = reduxForm({form: "login"})(LoginForm)
 
 const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captcha: state.auth.captchaUrl
 })
 export default connect(mapStateToProps, {loginThunkCreator})(Login);
